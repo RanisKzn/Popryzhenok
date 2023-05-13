@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d2ebea41d5d40a18721299f1b1a4526" Name="Diagram1">
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Agent" Width="1.5" PointX="10" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.AgentsType" Width="1.5" PointX="7.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Employee" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.HealthProblem" Width="1.5" PointX="10" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Material" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Product" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.ProductSale" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.ProductType" Width="1.5" PointX="5.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.SalePoint" Width="1.5" PointX="12.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Standart" Width="1.5" PointX="5.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Supplier" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.SupplierType" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.Type" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopryzhenokDBModel.UnitType" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Agent_AgentsType" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_SalePoint_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_HealthProblem_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Material_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Material_UnitType" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Supplier_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Product_ProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Product_Standart" ManuallyRouted="false" />
+        <AssociationConnector Association="PopryzhenokDBModel.FK_Supplier_SupplierType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
