@@ -64,11 +64,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAgentWindow.xaml.cs">
+      <DependentUpon>AddAgentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agent.cs">
       <DependentUpon>Popryzhenok.tt</DependentUpon>
     </Compile>
     <Compile Include="AgentsType.cs">
       <DependentUpon>Popryzhenok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeAgentWindow.xaml.cs">
+      <DependentUpon>ChangeAgentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePriorityAgentWindow.xaml.cs">
+      <DependentUpon>ChangePriorityAgentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
       <DependentUpon>Popryzhenok.tt</DependentUpon>
@@ -114,6 +123,18 @@
     <Compile Include="UnitType.cs">
       <DependentUpon>Popryzhenok.tt</DependentUpon>
     </Compile>
+    <Page Include="AddAgentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangeAgentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangePriorityAgentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,6 +203,9 @@
       <DependentUpon>Popryzhenok.edmx</DependentUpon>
       <LastGenOutput>Popryzhenok.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Попрыженок.png" />
+    <Resource Include="Resources\Попрыженок.ico" />
+    <Resource Include="Resources\picture.png" />
     <Resource Include="Resources\agent_1.png" />
     <Resource Include="Resources\agent_10.png" />
     <Resource Include="Resources\agent_100.png" />

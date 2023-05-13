@@ -11,6 +11,7 @@ namespace Popryzhenok
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     public partial class Agent
@@ -20,6 +21,7 @@ namespace Popryzhenok
         public Agent()
         {
             this.SalePoint = new HashSet<SalePoint>();
+            
         }
     
         public int AgentId { get; set; }
@@ -34,24 +36,111 @@ namespace Popryzhenok
         public string Priority { get; set; }
         public Nullable<int> RealizationHistoryID { get; set; }
         public string AgentName { get; set; }
+        public int Sale { get; set; }
 
         public string LogoDisplay 
         { 
             get
             {
-                return "../Resources/" + this.Logo;
-        
+                if(!string.IsNullOrEmpty(this.Logo))
+                {
+                    return "../Resources/" + this.Logo;
+                }
+                return "../Resources/picture.png";
+
             }   
+        }
+
+        public string DisplayColor 
+        { 
+            get
+            {
+                if(this.Sale > 25)
+                {
+                    return "Green";
+                }
+                return "White";
+            } 
+        }
+
+        public string TypeAndName
+        {
+            get
+            {
+                
+                return this.AgentsType.Name + " | " + this.AgentName;
+
+            }
         }
 
         public string Prodaji
         {
             get
             {
-                var a = context.ProductSale.Where(x => x.AgentId ==  this.AgentId).FirstOrDefault().CountProduction;
-                return "Продажи за год " + a.ToString();
+                var aghent = context.ProductSale.Where(x => x.AgentId ==  this.AgentId).FirstOrDefault();
+                if(aghent != null)
+                {
+                    return "Продажи за год " + aghent.CountProduction.ToString();
 
+                }
+                return "Продажи за год ";
             }
+        }
+
+        [NotMapped]
+        public string SaleValue
+        {
+            get
+            {
+                this.Sale = this.CalculSale;
+                return this.CalculSale + "%";
+            }
+        }
+
+
+        public int CalculSale
+        {
+            get
+            {
+                var productSaleList = context.ProductSale.Where(x => x.AgentId == this.AgentId).ToList();
+                int price = 0;
+                if (productSaleList != null)
+                {
+
+                    foreach (var productSale in productSaleList)
+                    {
+                        var product = context.Product.Where(x => x.ProductID == productSale.ProductId).FirstOrDefault();
+
+                        if (product != null)
+                        {
+                            price += Convert.ToInt32(product.MinCostForAgent * productSale.CountProduction);
+
+                        }
+                    }
+                    if (price < 10000)
+                    {
+                        return 0;
+                    }
+                    else if (price < 50000 && price > 10000)
+                    {
+                        return 5;
+                    }
+                    else if (price < 150000 && price > 50000)
+                    {
+                        return 10;
+                    }
+                    else if (price < 500000 && price > 150000)
+                    {
+                        return 20;
+                    }
+                    else if (price < 500000)
+                    {
+                        return 25;
+                    }
+                }
+                return 0;
+            }
+           
         }
 
         public virtual AgentsType AgentsType { get; set; }

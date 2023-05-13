@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Popryzhenok"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800"
+        Icon="Resources/Попрыженок.ico">
+    <Grid Background="#43DCFE">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
@@ -16,7 +17,13 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListView Name="AgentList" Grid.Row="1" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="Resources/Попрыженок.png"></Image>
+        <TextBox x:Name="SearchTB" Width="250" Height="30" TextChanged="SearchTB_TextChanged"></TextBox>
+        <UniformGrid Grid.Row="0" Grid.Column="1" Rows="1" >
+            <ComboBox Name="SorterCB" Width="150" Height="30" SelectionChanged="SorterCB_SelectionChanged"></ComboBox>
+            <ComboBox Name="FilterCB" Width="150" Height="30" SelectionChanged="FilterCB_SelectionChanged" DisplayMemberPath="Name"></ComboBox>
+        </UniformGrid>
+        <ListView Name="AgentList" Grid.Row="1" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="AgentList_SelectionChanged">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel>
@@ -26,30 +33,34 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="800">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="4*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Grid.RowSpan="4" Width="100" Source="{Binding LogoDisplay}"></Image>
-                        <UniformGrid Grid.Row="0" Grid.Column="1" Rows="1" Width="100" HorizontalAlignment="Left">
-                            <TextBlock Text="{Binding AgentsType.Name}" Width="auto"></TextBlock>
-                            <TextBlock Text="|" Width="2"></TextBlock>
-                            <TextBlock Text="{Binding AgentName}" Width="100"></TextBlock>
-                        </UniformGrid>
-                        <TextBlock Name="ProdaziTB" Text="{Binding Prodaji}" Grid.Row="1" Grid.Column="1"></TextBlock>
-                        <TextBlock Text="{Binding Phone}" Grid.Row="2" Grid.Column="1"></TextBlock>
-                        <TextBlock Text="{Binding Priority}" Grid.Row="3" Grid.Column="1"></TextBlock>
-                    </Grid>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid Width="800" MouseDown="Grid_MouseDown" MouseRightButtonDown="Grid_MouseRightButtonDown" Background="{Binding DisplayColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="4*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Grid.RowSpan="4" Width="100" Source="{Binding LogoDisplay}"></Image>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TypeAndName}"  Width="auto">
+                                </TextBlock>
+                                <TextBlock Name="ProdaziTB" Text="{Binding Prodaji}" Grid.Row="1" Grid.Column="1"></TextBlock>
+                            <TextBlock Text="{Binding Phone}" Grid.Row="2" Grid.Column="1"></TextBlock>
+                            <TextBlock Text="{Binding Priority}" Grid.Row="3" Grid.Column="1"></TextBlock>
+                            <TextBlock Text="{Binding SaleValue}" Grid.RowSpan="4" Grid.Column="2" FontSize="24"></TextBlock>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <UniformGrid Grid.Row="4" Grid.ColumnSpan="2" Rows="1">
+            <Button Name="ChangePriorityBTN" Content="Измениить приоритет на " Visibility="Hidden" Width="150" Height="30"  Click="ChangePriorityBTN_Click"></Button>
+            <Button Background="#F9969E" Name="AddAgentBTN" Content="Добавить агента" Width="150" Height="30" Click="AddAgentBTN_Click"></Button>
+        </UniformGrid>
     </Grid>
 </Window>
