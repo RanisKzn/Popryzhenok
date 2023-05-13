@@ -44,7 +44,7 @@
                             <TextBlock Text="|" Width="2"></TextBlock>
                             <TextBlock Text="{Binding AgentName}" Width="100"></TextBlock>
                         </UniformGrid>
-                        <TextBlock Name="ProdaziTB" Text="" Grid.Row="1" Grid.Column="1"></TextBlock>
+                        <TextBlock Name="ProdaziTB" Text="{Binding Prodaji}" Grid.Row="1" Grid.Column="1"></TextBlock>
                         <TextBlock Text="{Binding Phone}" Grid.Row="2" Grid.Column="1"></TextBlock>
                         <TextBlock Text="{Binding Priority}" Grid.Row="3" Grid.Column="1"></TextBlock>
                     </Grid>

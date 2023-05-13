@@ -11,9 +11,11 @@ namespace Popryzhenok
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Agent
     {
+        PopryzhenokDBEntities context = new PopryzhenokDBEntities();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Agent()
         {
@@ -38,8 +40,19 @@ namespace Popryzhenok
             get
             {
                 return "../Resources/" + this.Logo;
-        }   }
+        
+            }   
+        }
 
+        public string Prodaji
+        {
+            get
+            {
+                var a = context.ProductSale.Where(x => x.AgentId ==  this.AgentId).FirstOrDefault().CountProduction;
+                return "Продажи за год " + a.ToString();
+
+            }
+        }
 
         public virtual AgentsType AgentsType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

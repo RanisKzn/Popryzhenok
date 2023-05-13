@@ -20,6 +20,7 @@ namespace Popryzhenok
     /// </summary>
     public partial class MainWindow : Window
     {
+
         PopryzhenokDBEntities context = new PopryzhenokDBEntities();
         public MainWindow()
         {
