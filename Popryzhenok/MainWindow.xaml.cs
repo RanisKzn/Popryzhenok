@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Popryzhenok
 {
@@ -21,11 +12,12 @@ namespace Popryzhenok
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        List<Agent> agents;
         PopryzhenokDBEntities context = new PopryzhenokDBEntities();
         public MainWindow()
         {
             InitializeComponent();
+            agents = context.Agent.ToList(); 
             AgentList.ItemsSource = context.Agent.ToList();
             SorterCB.ItemsSource = new List<string>() 
             { 
@@ -42,65 +34,84 @@ namespace Popryzhenok
 
         private void SorterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch(SorterCB.SelectedIndex)
-            {
-                case 0:
-                    AgentList.ItemsSource = context.Agent.OrderBy(x => x.AgentName).ToList();
-                    break;
-                case 1:
-                    AgentList.ItemsSource = context.Agent.OrderByDescending(x => x.AgentName).ToList();
-                    break;
-                case 2:
-                    AgentList.ItemsSource = context.Agent.OrderBy(x => x.Sale).ToList();
-                    break;
-                case 3:
-                    AgentList.ItemsSource = context.Agent.OrderByDescending(x => x.Sale).ToList();
-                    break;
-                case 4:
-                    AgentList.ItemsSource = context.Agent.OrderBy(x => x.Priority).ToList();
-                    break;
-                case 5:
-                    AgentList.ItemsSource = context.Agent.OrderByDescending(x => x.Priority).ToList();
-                    break;
-                default:
-                    AgentList.ItemsSource = context.Agent.ToList();
-                    break;
-            }
+            setItemSource();
         }
 
         private void FilterCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            getByfilter();
+
+            setItemSource();
 
         }
-
-        private void getByfilter()
+        private List<Agent> getBySearch(List<Agent> agents)
         {
-            var agentList = AgentList.ItemsSource;
-            if (FilterCB.SelectedIndex == 0)
-            {
-                agentList = (agentList as List<Agent>).ToList();
-            }
-            else
-            {
-                agentList = (agentList as List<Agent>).Where(x => x.AgentsType.Name == ((AgentsType)FilterCB.SelectedItem).Name).ToList();
-            }
+
             if (String.IsNullOrEmpty(SearchTB.Text))
             {
-
-                agentList = (agentList as List<Agent>).ToList();
+                return agents;
             }
             else
             {
 
-                agentList = (agentList as List<Agent>).Where(x => x.AgentName.Contains(SearchTB.Text) ||  x.Phone.Contains(SearchTB.Text) || x.Email.Contains(SearchTB.Text)).ToList();
+                agents = agents.Where(x => x.AgentName.Contains(SearchTB.Text) || x.Phone.Contains(SearchTB.Text) || x.Email.Contains(SearchTB.Text)).ToList();
             }
-            AgentList.ItemsSource = agentList; 
+            return agents;
+        }
+        private List<Agent> getBySorted(List<Agent> agents)
+        {
+
+            switch (SorterCB.SelectedIndex)
+            {
+                case 0:
+                    agents = agents.OrderBy(x => x.AgentName).ToList();
+                    break;
+                case 1:
+                    agents = agents.OrderByDescending(x => x.AgentName).ToList();
+                    break;
+                case 2:
+                    agents = agents.OrderBy(x => x.Sale).ToList();
+                    break;
+                case 3:
+                    agents = agents.OrderByDescending(x => x.Sale).ToList();
+                    break;
+                case 4:
+                    agents = agents.OrderBy(x => x.Priority).ToList();
+                    break;
+                case 5:
+                    agents = agents.OrderByDescending(x => x.Priority).ToList();
+                    break;
+                default:
+                    agents = agents.ToList();
+                    break;
+            }
+            return agents;
+        }
+        private void setItemSource()
+        {
+            var agents = this.agents;
+            var filteredAgents = getByfilter(agents);
+            var searchedAgents = getBySearch(filteredAgents);
+            var sortedAgents = getBySorted(searchedAgents);
+            AgentList.ItemsSource = sortedAgents;
+            
+
+        }
+        private List<Agent> getByfilter(List<Agent> agents)
+        {
+            if (FilterCB.SelectedIndex == 0)
+            {
+                agents = context.Agent.ToList();
+            }
+            else
+            {
+                agents = context.Agent.Where(x => x.AgentsType.Name == ((AgentsType)FilterCB.SelectedItem).Name).ToList();
+            }
+            return agents;
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            getByfilter();
+            setItemSource();
         }
 
         private void AgentList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -122,17 +133,6 @@ namespace Popryzhenok
             this.Close();
             changePriorityAgentWindow.Show();
         }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if((sender as Grid).DataContext is Agent agent)
-            {
-                ChangeAgentWindow changeAgentWindow = new ChangeAgentWindow(agent);
-                this.Close();
-                changeAgentWindow.Show();
-            }
-        }
-
         private void AddAgentBTN_Click(object sender, RoutedEventArgs e)
         {
             AddAgentWindow addAgentWindow = new AddAgentWindow();
@@ -142,7 +142,17 @@ namespace Popryzhenok
 
         private void Grid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
+            if ((sender as Grid).DataContext is Agent agent)
+            {
+                ChangeAgentWindow changeAgentWindow = new ChangeAgentWindow(agent);
+                this.Close();
+                changeAgentWindow.Show();
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -34,7 +34,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1">
-                        <Grid Width="800" MouseDown="Grid_MouseDown" MouseRightButtonDown="Grid_MouseRightButtonDown" Background="{Binding DisplayColor}">
+                        <Grid Width="800" MouseRightButtonDown="Grid_MouseRightButtonDown" Background="{Binding DisplayColor}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
@@ -45,6 +45,7 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="4*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Grid.RowSpan="4" Width="100" Source="{Binding LogoDisplay}"></Image>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TypeAndName}"  Width="auto">
@@ -52,7 +53,7 @@
                                 <TextBlock Name="ProdaziTB" Text="{Binding Prodaji}" Grid.Row="1" Grid.Column="1"></TextBlock>
                             <TextBlock Text="{Binding Phone}" Grid.Row="2" Grid.Column="1"></TextBlock>
                             <TextBlock Text="{Binding Priority}" Grid.Row="3" Grid.Column="1"></TextBlock>
-                            <TextBlock Text="{Binding SaleValue}" Grid.RowSpan="4" Grid.Column="2" FontSize="24"></TextBlock>
+                            <TextBlock Text="{Binding SaleValue}" Grid.RowSpan="4" Grid.Column="3" FontSize="24"></TextBlock>
                         </Grid>
                     </Border>
                 </DataTemplate>

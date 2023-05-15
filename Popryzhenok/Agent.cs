@@ -59,7 +59,7 @@ namespace Popryzhenok
                 {
                     return "Green";
                 }
-                return "White";
+                return "Transparent";
             } 
         }
 
